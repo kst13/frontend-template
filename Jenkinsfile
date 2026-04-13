@@ -51,14 +51,14 @@ pipeline {
                     sh '''
                         DOCKERFILE_NAME=Dockerfile.build
                         cat > ${DOCKERFILE_NAME} <<'EOF'
-FROM node:20-slim
-WORKDIR /workspace
-RUN npm install -g vite
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-CMD npm run build
-EOF
+                        FROM node:20-slim
+                        WORKDIR /workspace
+                        RUN npm install -g vite
+                        COPY package.json package-lock.json ./
+                        RUN npm ci
+                        COPY . .
+                        CMD npm run build
+                        EOF
                         chmod -R 755 ./*
 
                         # 빌드 이미지 생성
